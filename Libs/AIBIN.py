@@ -2094,6 +2094,7 @@ class AIBIN:
 
 	reveal_types = [
 		('RevealFog', 0),
+		('RevealFull', 1),
 	]
 
 	def ai_reveal_type(self, data, stage=0):
