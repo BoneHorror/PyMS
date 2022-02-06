@@ -939,7 +939,8 @@ class AIBIN:
 						if not cmd and curoffset == len(curdata):
 							break
 						if cmd >= len(self.labels):
-							raise PyMSError('Load','Invalid command, could possibly be a corrrupt aiscript.bin')
+							msg = 'Invalid command 0x%x at offset 0x%x in script %s, could possibly be a corrrupt aiscript.bin' % (cmd, loc + curoffset - 1, id)
+							raise PyMSError('Load', msg)
 						ai = [cmd]
 						if self.parameters[cmd]:
 							for p in self.parameters[cmd]:
@@ -3271,7 +3272,8 @@ class BWBIN(AIBIN):
 						if not cmd and curoffset == len(curdata):
 							break
 						if cmd > len(self.labels):
-							raise PyMSError('Load','Invalid command, could possibly be a corrrupt bwscript.bin')
+							msg = 'Invalid command 0x%x at offset 0x%x in script %s, could possibly be a corrrupt bwscript.bin' % (cmd, loc + curoffset - 1, id)
+							raise PyMSError('Load', msg)
 						ai = [cmd]
 						if self.parameters[cmd]:
 							for p in self.parameters[cmd]:
