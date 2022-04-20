@@ -146,6 +146,12 @@ aicontrol_names = {
 	0x5: 'no_retaliation',
 	0x6: 'focus_disabled_units',
 	0x7: 'dont_focus_disabled_units',
+	0x8: 'global_enable_spell_focus',
+	0x9: 'global_disable_spell_focus',
+	0xa: 'global_enable_acid_spore_focus',
+	0xb: 'global_disable_acid_spore_focus',
+	0xc: 'global_enable_carrier_focus',
+	0xd: 'global_disable_carrier_focus',
 }
 
 aicontrol_names_rev = dict((v.lower(), k) for k, v in aicontrol_names.iteritems())
