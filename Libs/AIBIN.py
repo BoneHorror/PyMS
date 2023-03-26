@@ -134,6 +134,7 @@ issue_order_flag_names = {
 	0x4: 'Allied',
 	0x8: 'SingleUnit',
 	0x10: 'EachAtMostOnce',
+	0x40: 'IgnoreDatReqs',
 }
 issue_order_flag_reverse = dict((v.lower(), k) for k, v in issue_order_flag_names.iteritems())
 
