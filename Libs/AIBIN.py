@@ -138,6 +138,20 @@ issue_order_flag_names = {
 }
 issue_order_flag_reverse = dict((v.lower(), k) for k, v in issue_order_flag_names.iteritems())
 
+build_at_flag_names = {
+	0x1: 'AllowUnreachableRegions',
+	0x2: 'NotSafe',
+	0x8: 'AnyElevation',
+	0x10: 'NearResourceBuildings',
+	0x20: 'NearResources',
+	0x100: 'DontSpreadOut',
+	0x200: 'DontPreferUnpowered',
+	0x400: 'IgnoreExtraSpace',
+	0x02000000: 'PreferUnpowered',
+	0x80000000: 'Remove',
+}
+build_at_flags_reverse = dict((v.lower(), k) for k, v in build_at_flag_names.iteritems())
+
 aicontrol_names = {
 	0x0: 'wait_request_resources',
 	0x1: 'dont_wait_request_resources',
@@ -320,6 +334,7 @@ class AIBIN:
 		'__9E',
 		'__9F',
 		'BwKills',
+		'BuildAt',
 	]
 	short_labels = [
 		'goto',               #0x00 - 0
@@ -483,6 +498,7 @@ class AIBIN:
 		'__9e',
 		'__9f',
 		'bw_kills', #0xa0
+		'build_at', #0xa1
 	]
 
 	wait_commands = [
@@ -756,6 +772,8 @@ class AIBIN:
 			# bw_kills
 			[self.ai_byte, self.ai_compare_trig, self.ai_dword, self.ai_unit_or_group,
 				self.ai_address],
+			# build_at
+			[self.ai_unit_or_group, self.ai_build_at_point, self.ai_build_at_flags],
 		]
 		self.builds = []
 		for c in [6,19,20,21,22,69]:
@@ -801,6 +819,8 @@ class AIBIN:
 			'idle_order':[self.ai_idle_order],
 			'idle_order_flags':[self.ai_idle_order_flags],
 			'aicontrol':[self.ai_control_type],
+			'build_at_point':[self.ai_build_at_point],
+			'build_at_flags':[self.ai_build_at_flags],
 		}
 		self.typescanbe = {
 			'byte':[self.ai_byte],
@@ -837,6 +857,8 @@ class AIBIN:
 			'idle_order':[self.ai_order],
 			'idle_order_flags':[self.ai_idle_order_flags],
 			'aicontrol':[self.ai_control_type],
+			'build_at_point':[self.ai_build_at_point],
+			'build_at_flags':[self.ai_build_at_flags],
 		}
 		self.script_endings = [0,36,39,57,65,97] #goto, stop, debug, racejump, return, kill_thread
 
@@ -1681,6 +1703,17 @@ class AIBIN:
 			v = flags_from_str(data, reverse)
 		return [2,v]
 
+	def flags_u32(self, data, stage, names, reverse):
+		if stage == 0:
+			v, = struct.unpack('<I', data[:4])
+		elif stage == 1:
+			v = flags_to_str(data, names)
+		elif stage == 2:
+			v = struct.pack('<I', data)
+		elif stage == 3:
+			v = flags_from_str(data, reverse)
+		return [4,v]
+
 	def ai_issue_order_flags(self, data, stage=0):
 		"""issue_order_flags        - Any of the following:
 			Enemies
@@ -1690,6 +1723,21 @@ class AIBIN:
 			EachAtMostOnce
 		"""
 		return self.flags(data, stage, issue_order_flag_names, issue_order_flag_reverse)
+
+	def ai_build_at_flags(self, data, stage=0):
+		"""build_at_flags        - Any of the following:
+			AllowUnreachableRegions,
+			NotSafe,
+			AnyElevation,
+			NearResourceBuildings,
+			NearResources,
+			DontSpreadOut,
+			DontPreferUnpowered,
+			IgnoreExtraSpace,
+			PreferUnpowered,
+			Remove,
+		"""
+		return self.flags_u32(data, stage, build_at_flag_names, build_at_flags_reverse)
 
 	def ai_point(self, data, stage=0):
 		"""point        - A point, either '(x, y)' or 'Loc.{location id}'"""
@@ -1721,6 +1769,29 @@ class AIBIN:
 				raise PyMSError('Parameter', 'Invalid syntax for point (%s)' % e)
 
 		return [4, v]
+
+	def ai_build_at_point(self, data, stage=0):
+		"""build_at_point        - A point, either '(x, y)', 'Loc.{location id}', or 'TownCenter'"""
+		if stage == 0:
+			pass
+		elif stage == 1:
+			if data[0] == 65500:
+				v = 'TownCenter' % data[1]
+				return [4, v]
+		elif stage == 2:
+			pass
+		elif stage == 3:
+			try:
+				data = data.strip()
+				if data.lower() == 'towncenter':
+					v = (65500, 0)
+					return [4, v]
+			except PyMSError, e:
+				raise e
+			except Exception, e:
+				raise PyMSError('Parameter', 'Invalid syntax for point (%s)' % e)
+
+		return self.ai_point(data, stage)
 
 	def ai_area(self, data, stage=0):
 		"""area        - An area in form 'Point [~ radius]'"""
