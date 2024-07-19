@@ -1740,12 +1740,14 @@ class AIBIN:
 		return self.flags_u32(data, stage, build_at_flag_names, build_at_flags_reverse)
 
 	def ai_point(self, data, stage=0):
-		"""point        - A point, either '(x, y)' or 'Loc.{location id}'"""
+		"""point        - A point, either '(x, y)', 'Loc.{location id}', or 'ScriptArea'"""
 		if stage == 0:
 			v = struct.unpack('<HH', data[:4])
 		elif stage == 1:
 			if data[0] == 65535:
 				v = 'Loc.%d' % data[1]
+			elif data[0] == 65534:
+				v = 'ScriptArea'
 			else:
 				v = '(%d, %d)' % (data[0], data[1])
 		elif stage == 2:
@@ -1757,6 +1759,8 @@ class AIBIN:
 				if data.lower().startswith('loc.'):
 					location_id = int(data[4:])
 					v = (65535, location_id)
+				elif data.lower() == 'scriptarea':
+					v = (65534, 0)
 				elif data[0] == '(' and data[-1] == ')':
 					tokens = [x.strip() for x in data[1:-1].split(',')]
 					if len(tokens) == 2:
@@ -1771,7 +1775,7 @@ class AIBIN:
 		return [4, v]
 
 	def ai_build_at_point(self, data, stage=0):
-		"""build_at_point        - A point, either '(x, y)', 'Loc.{location id}', or 'TownCenter'"""
+		"""build_at_point        - A point, either '(x, y)', 'Loc.{location id}', 'ScriptArea' or 'TownCenter'"""
 		if stage == 0:
 			pass
 		elif stage == 1:
