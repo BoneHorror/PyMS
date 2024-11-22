@@ -335,6 +335,7 @@ class AIBIN:
 		'__9F',
 		'BwKills',
 		'BuildAt',
+		'DebugName',
 	]
 	short_labels = [
 		'goto',               #0x00 - 0
@@ -499,6 +500,7 @@ class AIBIN:
 		'__9f',
 		'bw_kills', #0xa0
 		'build_at', #0xa1
+		'debug_name', #0xa2
 	]
 
 	wait_commands = [
@@ -774,6 +776,8 @@ class AIBIN:
 				self.ai_address],
 			# build_at
 			[self.ai_unit_or_group, self.ai_build_at_point, self.ai_build_at_flags],
+			# debug_name
+			[self.ai_string]
 		]
 		self.builds = []
 		for c in [6,19,20,21,22,69]:
