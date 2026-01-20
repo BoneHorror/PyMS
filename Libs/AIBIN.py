@@ -501,6 +501,7 @@ class AIBIN:
 		'bw_kills', #0xa0
 		'build_at', #0xa1
 		'debug_name', #0xa2
+		'if_preparing', #0xa3
 	]
 
 	wait_commands = [
@@ -777,7 +778,8 @@ class AIBIN:
 			# build_at
 			[self.ai_unit_or_group, self.ai_build_at_point, self.ai_build_at_flags],
 			# debug_name
-			[self.ai_string]
+			[self.ai_string],
+			[self.ai_address] # if_preparing
 		]
 		self.builds = []
 		for c in [6,19,20,21,22,69]:
