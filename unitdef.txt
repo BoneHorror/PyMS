@@ -26,6 +26,29 @@ military firebat = 32
 military medic = 34
 @spellcaster(medic)
 military valkyrie = 58
+military tesla_trooper = 10
+military phantom = 16
+military death_knight = 17
+military scorpion = 19
+military hmarine = 20
+military skywing = 21
+military hsciencevessel = 22
+@spellcaster(hsciencevessel)
+military panzer = 23
+military gatherous = 25
+military sikari = 26
+#military hmengsk = 27
+military cyphia = 27
+military hhyperion = 28
+military hnorad = 29
+military hduran = 99
+military hstukov = 100
+military hdugalle = 102
+#military levi = 261
+#military graf = 262
+#military bis = 263
+#military stal = 264
+#military nora = 265
 
 # Zerg military units
 military zergling = 37
@@ -41,6 +64,24 @@ military scourge = 47
 military infested_terran = 50
 military devourer = 62
 military lurker = 103
+military broodling = 40
+military hultralisk = 48
+military hqueen = 49
+@spellcaster(hqueen)
+military hikerrigan = 51
+military hdefiler = 52
+military hhydralisk = 53
+military hzergling = 54
+military hmutalisk = 55
+military heavy_marine = 56
+military hoverlord = 57
+military hiduran = 104
+military spawnsire = 277
+
+#Taar
+military sy_demon = 279
+military gray = 280
+military ortu = 281
 
 # Protoss military units
 military corsair = 60
@@ -58,6 +99,21 @@ military arbiter = 71
 military carrier = 72
 military reaver = 83
 military observer = 84
+military revenant = 74
+military hzeratul = 75
+military harchon = 76
+military valhalla = 77
+military hdragoon = 78
+military htassadar = 79
+military hmojo = 80
+military hreaver = 81
+military hcarrier = 82
+military harbiter = 86
+military h_aldaris = 87
+military h_artanis = 88
+military leader = 91
+military hornet = 92
+military hcorsair = 98
 
 
 # Terran buildings
@@ -80,6 +136,7 @@ building engineering_bay = 122
 building armory = 123
 building missile_turret = 124
 building bunker = 125
+building t_flag_beacon = 198
 
 # Zerg buildings
 building drone = 41
@@ -100,7 +157,9 @@ building spawning_pool = 142
 building creep_colony = 143
 building spore_colony = 144
 building sunken_colony = 146
+building overmind = 148
 building extractor = 149
+building z_flag_beacon = 197
 
 # Protoss buildings
 building probe = 64
@@ -111,6 +170,7 @@ building assimilator = 157
 building observatory = 159
 building gateway = 160
 building photon_cannon = 162
+building warden = 161
 building citadel_of_adun = 163
 building cybernetics_core = 164
 building templar_archives = 165
@@ -120,7 +180,10 @@ building fleet_beacon = 169
 building arbiter_tribunal = 170
 building robotics_support_bay = 171
 building shield_battery = 172
-
+building protoss_temple = 174
+building evolver = 182
+building piercer = 184
+building p_flag_beacon = 199
 
 # Terran upgrades
 upgrade t_infantry_armor = 0
@@ -131,13 +194,23 @@ upgrade t_vehicle_weapon = 8
 upgrade t_ship_weapon = 9
 upgrade marine_range = 16
 upgrade vulture_speed = 17
+upgrade dragon_catalyst = 18
 upgrade science_vessel_mana = 19
 upgrade ghost_sight = 20
 upgrade ghost_mana = 21
 upgrade wraith_mana = 22
 upgrade battlecruiser_mana = 23
+upgrade thunder_boosters = 46
 upgrade medic_mana = 51
 upgrade goliath_range = 54
+upgrade panzer_attack = 58
+upgrade staballoy = 59
+upgrade hospitals = 62
+upgrade vademecum = 65
+upgrade adv_mechanics = 66
+upgrade safety_protocols = 67
+upgrade overclocking = 69
+upgrade science_aura = 72
 
 # Zerg upgrades
 upgrade z_carapace = 3
@@ -154,8 +227,14 @@ upgrade hydralisk_speed = 29
 upgrade hydralisk_range = 30
 upgrade queen_mana = 31
 upgrade defiler_mana = 32
+upgrade bone_mastery = 45
 upgrade ultralisk_armor = 52
 upgrade ultralisk_speed = 53
+upgrade burrowed_regen = 56
+upgrade hydra_attack = 63
+upgrade voracity = 64
+upgrade para_symbiosis = 68
+upgrade lurker_speed = 71
 
 # Protoss upgrades
 upgrade p_armor = 5
@@ -177,6 +256,8 @@ upgrade carrier_capacity = 43
 upgrade arbiter_mana = 44
 upgrade corsair_mana = 47
 upgrade dark_archon_mana = 49
+upgrade one_with_khala = 57
+upgrade robotics_speed = 73
 
 
 # Terran tech
@@ -213,3 +294,4 @@ technology disruption_web = 25
 technology mind_control = 27
 technology feedback = 29
 technology maelstrom = 31
+
