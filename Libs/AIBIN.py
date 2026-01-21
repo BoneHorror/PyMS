@@ -336,6 +336,7 @@ class AIBIN:
 		'BwKills',
 		'BuildAt',
 		'DebugName',
+		'IfPreparing',
 	]
 	short_labels = [
 		'goto',               #0x00 - 0
