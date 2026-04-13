@@ -72,7 +72,7 @@ class SPK:
 				star.image = images[offset]
 				layer.stars.append(star)
 		self.layers = layers
-		self.images = images.values()
+		self.images = list(images.values())
 
 	def interpret_file(self, filepath, layer_count):
 		bmp = BMP.BMP()
@@ -146,7 +146,7 @@ class SPK:
 				star.image = image
 				layers[l].stars.append(star)
 		self.layers = layers
-		self.images = images.values()
+		self.images = list(images.values())
 
 	def save_file(self, file):
 		data = self.save_data()

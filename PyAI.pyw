@@ -58,44 +58,44 @@ def main():
 						ids = []
 						for i in opt.scripts.split(','):
 							if len(i) != 4:
-								print('Invalid ID: %s' % ids[-1])
+								print(('Invalid ID: %s' % ids[-1]))
 								return
 							ids.append(i)
 					else:
 						ids = None
-					print("Loading bwscript.bin '%s', units.dat '%s', upgrades.dat '%s', techdata.dat '%s', and stat_txt.tbl '%s'" % (args[1],opt.units,opt.upgrades,opt.techdata,opt.stattxt))
+					print(("Loading bwscript.bin '%s', units.dat '%s', upgrades.dat '%s', techdata.dat '%s', and stat_txt.tbl '%s'" % (args[1],opt.units,opt.upgrades,opt.techdata,opt.stattxt)))
 					bin = AIBIN.AIBIN(args[1],opt.units,opt.upgrades,opt.techdata,opt.stattxt)
 					warnings.extend(bin.warnings)
-					print(" - Loading finished successfully\nReading BINs '%s' and '%s'..." % (args[0],args[1]))
+					print((" - Loading finished successfully\nReading BINs '%s' and '%s'..." % (args[0],args[1])))
 					warnings.extend(bin.load_file(args[0]))
-					print(" - BINs read successfully\nWriting AI Scripts to '%s'..." % args[2])
+					print((" - BINs read successfully\nWriting AI Scripts to '%s'..." % args[2]))
 					warnings.extend(bin.decompile(args[2],opt.deffile,opt.reference,opt.longlabels,ids))
-					print(" - '%s' written succesfully" % args[2])
+					print((" - '%s' written succesfully" % args[2]))
 				else:
 					if opt.bwscript:
-						print("Loading base bwscript.bin '%s', units.dat '%s', upgrades.dat '%s', techdata.dat '%s', and stat_txt.tbl '%s'" % (os.path.abspath(opt.bwscript),opt.units,opt.upgrades,opt.techdata,opt.stattxt))
+						print(("Loading base bwscript.bin '%s', units.dat '%s', upgrades.dat '%s', techdata.dat '%s', and stat_txt.tbl '%s'" % (os.path.abspath(opt.bwscript),opt.units,opt.upgrades,opt.techdata,opt.stattxt)))
 						bin = AIBIN.AIBIN(os.path.abspath(opt.bwscript),opt.units,opt.upgrades,opt.techdata,opt.stattxt)
 					else:
-						print("Loading units.dat '%s', upgrades.dat '%s', techdata.dat '%s', and stat_txt.tbl '%s'" % (opt.units,opt.upgrades,opt.techdata,opt.stattxt))
+						print(("Loading units.dat '%s', upgrades.dat '%s', techdata.dat '%s', and stat_txt.tbl '%s'" % (opt.units,opt.upgrades,opt.techdata,opt.stattxt)))
 						bin = AIBIN.AIBIN('',opt.units,opt.upgrades,opt.techdata,opt.stattxt)
 					print(" - Loading finished successfully")
 					if opt.aiscript:
-						print("Loading base aiscript.bin '%s'..." % os.path.abspath(opt.aiscript))
+						print(("Loading base aiscript.bin '%s'..." % os.path.abspath(opt.aiscript)))
 						bin.load_file(os.path.abspath(opt.aiscript))
 						print(" - aiscript.bin read successfully")
-					print("Interpreting file '%s'..." % args[0])
+					print(("Interpreting file '%s'..." % args[0]))
 					warnings.extend(bin.interpret(args[0],opt.deffile))
-					print(" - '%s' read successfully\nCompiling file '%s' to aiscript.bin '%s' and bwscript.bin '%s'..." % (args[0], args[0], args[1], args[2]))
+					print((" - '%s' read successfully\nCompiling file '%s' to aiscript.bin '%s' and bwscript.bin '%s'..." % (args[0], args[0], args[1], args[2])))
 					bin.compile(args[1], args[2])
-					print(" - aiscript.bin '%s' and bwscript.bin '%s' written succesfully" % (args[1], args[2]))
+					print((" - aiscript.bin '%s' and bwscript.bin '%s' written succesfully" % (args[1], args[2])))
 				if not opt.hidewarns:
 					for warning in warnings:
-						print(repr(warning))
+						print((repr(warning)))
 			except PyMSError as e:
 				if warnings and not opt.hidewarns:
 					for warning in warnings:
-						print(repr(warning))
-				print(repr(e))
+						print((repr(warning)))
+				print((repr(e)))
 
 if __name__ == '__main__':
 	main()

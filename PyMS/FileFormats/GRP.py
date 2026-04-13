@@ -74,13 +74,13 @@ def image_to_pil(image, palette, transindex=0, image_bounds=None, flipHor=False,
 	height = len(image)
 	i = PILImage.new('RGBA', (width,height))
 	data = []
-	pal = map(lambda i: draw_function(palette,i,draw_info), range(len(palette)))
+	pal = [draw_function(palette,i,draw_info) for i in range(len(palette))]
 	if transindex != None:
 		pal[transindex] = (0,0,0,0)
 	if flipHor:
-		image = map(reversed, image)
+		image = list(map(reversed, image))
 	data = itertools.chain.from_iterable(image)
-	data = map(pal.__getitem__, data)
+	data = list(map(pal.__getitem__, data))
 	i.putdata(data)
 	return i
 
@@ -104,7 +104,7 @@ def frame_to_photo(p, g, f=None, buffered=False, size=True, trans=True, transind
 	pal = []
 	if draw_function == None:
 		draw_function = rle_normal
-	pal = map(lambda i,p=p,e=draw_info: draw_function(p,i,e), range(len(p)))
+	pal = list(map(lambda i,p=p,e=draw_info: draw_function(p,i,e), list(range(len(p)))))
 	pal[transindex] = (0,0,0,0)
 	if size:
 		image = [None,-1,-1,-1,-1]
@@ -130,9 +130,9 @@ def frame_to_photo(p, g, f=None, buffered=False, size=True, trans=True, transind
 		return image
 	else:
 		if flipHor:
-			d = map(reversed, d)
+			d = list(map(reversed, d))
 		data = itertools.chain.from_iterable(d)
-		data = map(pal.__getitem__, data)
+		data = list(map(pal.__getitem__, data))
 		i.putdata(data)
 		return ImageTk.PhotoImage(i)
 
@@ -263,7 +263,7 @@ class CacheGRP:
 								linedata.extend([ord(self.databuffer[offset+1])] * (o - 0x40))
 								offset += 2
 							else:
-								linedata.extend(map(ord, self.databuffer[offset+1:offset+1+o]))
+								linedata.extend(list(map(ord, self.databuffer[offset+1:offset+1+o])))
 								offset += o + 1
 						image.append(linedata[:xoffset+linewidth] + [0] * (self.width-linewidth-xoffset))
 					if self.uncompressed == None:
