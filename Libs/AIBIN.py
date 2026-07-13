@@ -337,6 +337,7 @@ class AIBIN:
 		'BuildAt',
 		'DebugName',
 		'IfPreparing',
+		'AutoSave',
 	]
 	short_labels = [
 		'goto',               #0x00 - 0
@@ -503,6 +504,7 @@ class AIBIN:
 		'build_at', #0xa1
 		'debug_name', #0xa2
 		'if_preparing', #0xa3
+		'autosave', #0xa4
 	]
 
 	wait_commands = [
@@ -780,7 +782,10 @@ class AIBIN:
 			[self.ai_unit_or_group, self.ai_build_at_point, self.ai_build_at_flags],
 			# debug_name
 			[self.ai_string],
-			[self.ai_address] # if_preparing
+			# if_preparing
+			[self.ai_address], 
+			# autosave
+			[self.ai_string, self.ai_byte], 
 		]
 		self.builds = []
 		for c in [6,19,20,21,22,69]:
